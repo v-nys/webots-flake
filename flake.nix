@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    webots.url = "https://github.com/cyberbotics/webots/releases/download/R2025a/webots-R2025a-x86-64.tar.bz2";
+    webots.url = "https://github.com/cyberbotics/webots/releases/download/R2023b/webots-R2023b-x86-64.tar.bz2";
     webots.flake = false;
   };
 
@@ -67,6 +67,7 @@
           zip
           zlib
         ];
+        webotsDir = webots;
         desktopFile = (
           pkgs.makeDesktopItem {
             name = "webots-fhs";
@@ -97,6 +98,7 @@
           '';
           meta.description = "Webots in an FHS environment";
         };
+        packages.webotsDir = webotsDir;
         apps.default = {
           type = "app";
           program = "${packages.default}/bin/webots";
