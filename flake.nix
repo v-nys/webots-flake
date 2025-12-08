@@ -84,6 +84,13 @@
         formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
         packages.default = pkgs.buildFHSUserEnv {
           name = "webots";
+          extraMounts = [
+            {
+              source = "/tmp";
+              target = "/tmp";
+              recursive = true;
+            }
+          ];
           targetPkgs = pkgs: dependencies;
           runScript = pkgs.writeScript "webots" ''
             export QT_PLUGIN_PATH=${webots}/lib/webots/qt/plugins
