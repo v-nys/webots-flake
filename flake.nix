@@ -5,12 +5,19 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    webots.url = "https://github.com/cyberbotics/webots/releases/download/R2023b/webots-R2023b-x86-64.tar.bz2";
+    webots.url = "https://github.com/cyberbotics/webots/releases/download/R2025a/webots-R2025a-x86-64.tar.bz2";
     webots.flake = false;
   };
 
-  outputs = { self, nixpkgs, flake-utils, webots }:
-    flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      webots,
+    }:
+    flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (
+      system:
       let
         pkgs = (import nixpkgs) { inherit system; };
         dependencies = with pkgs; [
@@ -60,27 +67,28 @@
           zip
           zlib
         ];
-        desktopFile = (pkgs.makeDesktopItem {
-          name = "webots-fhs";
-          exec = "%%EXEC%%";
-          icon = "${webots}/resources/icons/core/webots.png";
-          comment = "Webots in an FHS environment";
-          desktopName = "Webots (FHS)";
-          genericName = "Webots (FHS)";
-          categories = [ "Utility" ];
-        });
+        desktopFile = (
+          pkgs.makeDesktopItem {
+            name = "webots-fhs";
+            exec = "%%EXEC%%";
+            icon = "${webots}/resources/icons/core/webots.png";
+            comment = "Webots in an FHS environment";
+            desktopName = "Webots (FHS)";
+            genericName = "Webots (FHS)";
+            categories = [ "Utility" ];
+          }
+        );
       in
       rec {
         formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
         packages.default = pkgs.buildFHSUserEnv {
           name = "webots";
           targetPkgs = pkgs: dependencies;
-          runScript = pkgs.writeScript "webots"
-            ''
-              export QT_PLUGIN_PATH=${webots}/lib/webots/qt/plugins
-              export WEBOTS_HOME=${webots}
-              exec ${webots}/webots "$@"
-            '';
+          runScript = pkgs.writeScript "webots" ''
+            export QT_PLUGIN_PATH=${webots}/lib/webots/qt/plugins
+            export WEBOTS_HOME=${webots}
+            exec ${webots}/webots "$@"
+          '';
           extraInstallCommands = ''
             mkdir -p $out
             cp -r ${desktopFile}/* $out/
@@ -96,5 +104,6 @@
         devShells.default = pkgs.mkShell {
           buildInputs = dependencies;
         };
-      });
+      }
+    );
 }
