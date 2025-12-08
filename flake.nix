@@ -96,6 +96,10 @@
             export QT_PLUGIN_PATH=${webots}/lib/webots/qt/plugins
             export WEBOTS_HOME=${webots}
             exec ${webots}/webots "$@"
+            export WEBOTS_TMPDIR=/tmp/webots-tmp
+            mkdir -p "$WEBOTS_TMPDIR"
+            chmod 777 "$WEBOTS_TMPDIR"
+            exec ${pkgs.setpriv}/bin/setpriv --reuid=$(id -u) --regid=$(id -g) --init-groups ${webotsDir}/webots "$@"
           '';
           extraInstallCommands = ''
             mkdir -p $out
