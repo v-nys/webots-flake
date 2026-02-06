@@ -59,14 +59,14 @@
     "webots": {
       "flake": false,
       "locked": {
-        "lastModified": 1687878853,
-        "narHash": "sha256-m97KFWFIjEb9NQfiVklGMTn/8Ix/p3jG4L3fJO2PSCY=",
+        "lastModified": 1738671667,
+        "narHash": "sha256-NnAr/uCM2f4OO3mk2r15QHflxRqsecBNFZayMCi2g8E=",
         "type": "tarball",
-        "url": "https://github.com/cyberbotics/webots/releases/download/R2023b/webots-R2023b-x86-64.tar.bz2"
+        "url": "https://github.com/cyberbotics/webots/releases/download/R2025a/webots-R2025a-x86-64.tar.bz2"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/cyberbotics/webots/releases/download/R2023b/webots-R2023b-x86-64.tar.bz2"
+        "url": "https://github.com/cyberbotics/webots/releases/download/R2025a/webots-R2025a-x86-64.tar.bz2"
       }
     }
   },
