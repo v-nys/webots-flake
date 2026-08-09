@@ -33,7 +33,7 @@
           freetype
           gdal
           gl2ps
-          glew-egl
+          glew
           glib
           gnumake
           gnupg
@@ -54,7 +54,7 @@
           prelink
           proj
           python311
-          qt6.full
+          qt6.qtbase
           readline
           sndio
           swig
@@ -85,7 +85,7 @@
       in
       rec {
         formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
-        packages.default = pkgs.buildFHSUserEnv {
+        packages.default = pkgs.buildFHSEnv {
           name = "webots";
           extraMounts = [
             {
