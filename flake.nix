@@ -118,6 +118,7 @@
           program = "${packages.default}/bin/webots";
         };
         devShells.default = pkgs.mkShell {
+          packages = [self.packages.${system}.default];
           buildInputs = dependencies;
         };
       }
