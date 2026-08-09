@@ -105,7 +105,8 @@
             exec ${utilLinux}/bin/setpriv --reuid=$(id -u) --regid=$(id -g) --init-groups ${webotsDir}/webots "$@"
           '';
           extraInstallCommands = ''
-            mkdir -p $out
+            mkdir -p $out/bin/resources
+            echo "R2025a" > $out/bin/resources/version.txt
             cp -r ${desktopFile}/* $out/
             chmod +w $out/share/applications
             sed -i "s#%%EXEC%%#$out/bin/webots#" $out/share/applications/webots-fhs.desktop
